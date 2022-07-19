@@ -3,6 +3,8 @@ package com.employeepayroll;
 import java.io.File;
 
 public class FileDeletion {
+    //    below method is for deleting file.
+
     public void deleteFile(){
         File file1 = new File("C:\\Users\\Lenovo\\IdeaProjects\\EmployeePayrollService\\src\\test.txt");
         if (file1.delete()){
