@@ -4,6 +4,9 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.stream.IntStream;
+
 /*In code below file and directory has been created.
 * First we created two method, one is for creating file and another method
 * is for creating directory.
@@ -25,8 +28,10 @@ public class FileCreation {
 
     }
     //    below method is for creating directory.
-    public void createDirectory() throws IOException {
+    public static void createDirectory() throws IOException {
 //      path has been given for creation of directory.
-        Files.createDirectory(Path.of("C:\\Users\\Lenovo\\IdeaProjects\\EmployeePayrollService\\src\\tempo"));
+        Path newPath= Paths.get("C:\\Users\\Lenovo\\IdeaProjects\\EmployeePayrollService\\src\\tempo");
+        Files.createDirectory(newPath);
     }
+
 }

@@ -1,0 +1,3 @@
+id= 1, name= shubom, salary= 28833.0
+id= 2, name= jyoti, salary= 32332.0
+id= 3, name= supali, salary= 32333.0

@@ -1,6 +1,6 @@
 package com.employeepayroll;
 
-import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -14,6 +14,7 @@ import java.util.Scanner;
 * get executed properly.
 */
 public class EmployeePayrollServices {
+    Scanner ConsoleInputReader = new Scanner(System.in);
 
     public List<EmployeePayrollData> employeePayrollDataList;
 
@@ -28,11 +29,28 @@ public class EmployeePayrollServices {
         ArrayList<EmployeePayrollData> employeePayrollDataList = new ArrayList<>();
         EmployeePayrollServices employeePayrollServices=new EmployeePayrollServices(employeePayrollDataList);
         Scanner ConsoleInputReader = new Scanner(System.in);
-        employeePayrollServices.readEmployeePayrollData(ConsoleInputReader);
-        employeePayrollServices.writeEmployeePayrollData();
+        employeePayrollServices.operations();
     }
 
-    private void readEmployeePayrollData(Scanner consoleReadInput){
+    public void operations(){
+
+        boolean change=true;
+        do{
+            System.out.println("\n Choose operations:-");
+            System.out.println("1.Read & write\n2.Exit");
+            switch (ConsoleInputReader.nextInt()){
+                case 1:
+                    readEmployeePayrollData(ConsoleInputReader);
+                    writeEmployeePayrollData();
+                    break;
+                case 2:
+                    change=false;
+                    System.out.println("Exiting");
+            }
+        }while (change);
+    }
+
+    public void readEmployeePayrollData(Scanner consoleReadInput){
         System.out.println("Enter Employee id: ");
         int id=consoleReadInput.nextInt();
         System.out.println("Enter Employee name: ");
@@ -41,7 +59,16 @@ public class EmployeePayrollServices {
         double salary=consoleReadInput.nextDouble();
         employeePayrollDataList.add(new EmployeePayrollData(id, name, salary));
     }
-    private void writeEmployeePayrollData(){
-        System.out.println("\n Writing employee payroll roaster to console: "+ employeePayrollDataList);
+    public void writeEmployeePayrollData(){
+        FileWriter file;
+        try {
+            file = new FileWriter("C:\\Users\\Lenovo\\IdeaProjects\\EmployeePayrollService\\src\\test.txt");
+            for(EmployeePayrollData str: employeePayrollDataList){
+                file.write(str + System.lineSeparator());
+            }file.close();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        //System.out.println("\n Writing employee payroll roaster to console: "+ employeePayrollDataList);
     }
 }
