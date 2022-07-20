@@ -35,7 +35,7 @@ public class EmployeePayrollServices {
         boolean change=true;
         do{
             System.out.println("\n Choose operations:-");
-            System.out.println("1.Read & write\n2.Content count\n3.Exit");
+            System.out.println("1.Read & write\n2.Content count\n3.Read file\n4.Exit");
             switch (ConsoleInputReader.nextInt()){
                 case 1:
                     readEmployeePayrollData(ConsoleInputReader);
@@ -45,6 +45,9 @@ public class EmployeePayrollServices {
                     countContent();
                     break;
                 case 3:
+                    readFile();
+                    break;
+                case 4:
                     change=false;
                     System.out.println("Exiting");
             }
@@ -99,5 +102,17 @@ public class EmployeePayrollServices {
         }
         System.out.println("Numbers of line: "+ lineCount);
         System.out.println("Numbers of words: "+ wordCount);
+    }
+    public static void readFile() {
+        File file = new File("C:\\Users\\Lenovo\\IdeaProjects\\EmployeePayrollService\\src\\test.txt");
+        try {
+            Scanner scanner = new Scanner(file);
+            while (scanner.hasNextLine()) {
+                String readLine = scanner.nextLine();
+                System.out.println(readLine);
+            }
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
     }
 }
