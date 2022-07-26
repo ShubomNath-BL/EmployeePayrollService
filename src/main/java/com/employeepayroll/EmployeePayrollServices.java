@@ -1,8 +1,10 @@
 package com.employeepayroll;
 
 import java.io.*;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import java.util.Scanner;
 /*
 * The code below is to read and write employee data from console.
@@ -13,6 +15,8 @@ import java.util.Scanner;
 * get executed properly.
 */
 public class EmployeePayrollServices {
+
+    public enum IOservice {CONSOLE_IO, FILE_IO, DB_IO};
     Scanner ConsoleInputReader = new Scanner(System.in);
 
     public List<EmployeePayrollData> employeePayrollDataList;
@@ -20,6 +24,10 @@ public class EmployeePayrollServices {
 
     public EmployeePayrollServices(ArrayList<EmployeePayrollData>employeePayrollDataList){
         this.employeePayrollDataList = employeePayrollDataList;
+    }
+
+    public EmployeePayrollServices() {
+
     }
 
     public enum IOServices{CONSOLE_IO, FILE_IO}
@@ -75,6 +83,12 @@ public class EmployeePayrollServices {
         }
         //System.out.println("\n Writing employee payroll roaster to console: "+ employeePayrollDataList);
     }
+    public List<EmployeePayrollData> readEmployeePayrollData(IOservice iOservice) {
+        if(iOservice.equals(IOservice.DB_IO));
+            this.employeePayrollDataList = new EmployeePayrollDBServices().readData();
+        return this.employeePayrollDataList;
+    }
+
     public void countContent(){
         File file = new File("C:\\Users\\Lenovo\\IdeaProjects\\EmployeePayrollService\\src\\test.txt");
         FileInputStream fileInputStream = null;
