@@ -94,4 +94,18 @@ public class EmployeePayrollDBServices {
             throw new RuntimeException(e);
         }
     }
+
+    public ResultSet retriveEmployeeDataWithDate(String date) {
+        return retriveEmployeeDataUsingDate(date);
+    }
+
+    private ResultSet retriveEmployeeDataUsingDate(String date) {
+        String sql = String.format("select name from employee_payroll WHERE start BETWEEN CAST('%s' AS DATE) AND DATE(NOW());", date);
+        try (Connection connection = this.getConnection()){
+            Statement statement = connection.createStatement();
+            return statement.executeQuery(sql);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
 }

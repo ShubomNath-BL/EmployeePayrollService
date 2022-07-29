@@ -1,10 +1,9 @@
 package com.employeepayroll;
 
 import java.io.*;
-import java.time.LocalDate;
+import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 import java.util.Scanner;
 /*
 * The code below is to read and write employee data from console.
@@ -15,7 +14,6 @@ import java.util.Scanner;
 * get executed properly.
 */
 public class EmployeePayrollServices {
-
 
     public enum IOservice {CONSOLE_IO, FILE_IO, DB_IO};
     Scanner ConsoleInputReader = new Scanner(System.in);
@@ -149,5 +147,10 @@ public class EmployeePayrollServices {
         List<EmployeePayrollData> employeePayrollDataList1 = employeePayrollDBServices.getEmployeePayrollData(name);
         return true;
     }
-
+    public void retriveEmployeeWithDate(String date) {
+        ResultSet result = employeePayrollDBServices.retriveEmployeeDataWithDate(date);
+        if(result == null) return;
+        EmployeePayrollData employeePayrollData = this.getEmployeePayrollData(date);
+        if (employeePayrollData != null) employeePayrollData.getStart(date);
+    }
 }

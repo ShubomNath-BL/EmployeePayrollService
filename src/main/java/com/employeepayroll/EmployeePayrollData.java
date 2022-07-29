@@ -20,7 +20,7 @@ public class EmployeePayrollData {
         this.start = start;
     }
 
-    public LocalDate getStart() {
+    public LocalDate getStart(String date) {
         return start;
     }
 
