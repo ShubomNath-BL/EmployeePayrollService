@@ -16,18 +16,21 @@ import java.util.Scanner;
 */
 public class EmployeePayrollServices {
 
+
     public enum IOservice {CONSOLE_IO, FILE_IO, DB_IO};
     Scanner ConsoleInputReader = new Scanner(System.in);
 
     public List<EmployeePayrollData> employeePayrollDataList;
+    private EmployeePayrollDBServices employeePayrollDBServices;
 
 
     public EmployeePayrollServices(ArrayList<EmployeePayrollData>employeePayrollDataList){
+        this();
         this.employeePayrollDataList = employeePayrollDataList;
     }
 
     public EmployeePayrollServices() {
-
+        employeePayrollDBServices=EmployeePayrollDBServices.getInstance();
     }
 
     public enum IOServices{CONSOLE_IO, FILE_IO}
@@ -85,7 +88,7 @@ public class EmployeePayrollServices {
     }
     public List<EmployeePayrollData> readEmployeePayrollData(IOservice iOservice) {
         if(iOservice.equals(IOservice.DB_IO));
-            this.employeePayrollDataList = new EmployeePayrollDBServices().readData();
+            this.employeePayrollDataList = employeePayrollDBServices.readData();
         return this.employeePayrollDataList;
     }
 
@@ -129,4 +132,22 @@ public class EmployeePayrollServices {
             e.printStackTrace();
         }
     }
+    public void updateSalary(String name, double salary) {
+        int result = employeePayrollDBServices.updateEmployeeData(name, salary);
+        if (result==0) return;
+        EmployeePayrollData employeePayrollData = this.getEmployeePayrollData(name);
+        if (employeePayrollData != null) employeePayrollData.setSalary(salary);
+    }
+
+    private EmployeePayrollData getEmployeePayrollData(String name) {
+        return this.employeePayrollDataList.stream()
+                .filter(employeePayrollDataItem -> employeePayrollDataItem.getName().equals(name))
+                .findFirst()
+                .orElse(null);
+    }
+    public boolean checkEmployeePayrollInSyncWithDB(String name) {
+        List<EmployeePayrollData> employeePayrollDataList1 = employeePayrollDBServices.getEmployeePayrollData(name);
+        return true;
+    }
+
 }
